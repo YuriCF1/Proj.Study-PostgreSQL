@@ -70,3 +70,10 @@ UPDATE aluno
 	hora_aula = '13:00:00',
 	matriculado_em = '2020-01-02 15:00:00'
 	WHERE id = 1
+	
+SELECT * FROM aluno 
+	WHERE nome = 'Cruz';
+	
+DELETE FROM aluno 
+	WHERE nome = 'Cruz';
+	
