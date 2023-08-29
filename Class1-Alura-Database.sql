@@ -27,7 +27,8 @@ CREATE TABLE aluno (
 	matriculado_em TIMESTAMP
 );
 
-SELECT * FROM aluno;
+SELECT 
+	* FROM aluno;
 
 INSERT INTO aluno (
 	nome, 
@@ -55,7 +56,8 @@ VALUES (
 	'2020-02-08 12:32:45'
 );
 
-SELECT * FROM aluno 
+SELECT 
+	* FROM aluno 
 	WHERE id = 1
 	
 UPDATE aluno 
@@ -71,9 +73,19 @@ UPDATE aluno
 	matriculado_em = '2020-01-02 15:00:00'
 	WHERE id = 1
 	
-SELECT * FROM aluno 
+SELECT 
+	* FROM aluno 
 	WHERE nome = 'Cruz';
 	
-DELETE FROM aluno 
+DELETE 
+	FROM aluno 
 	WHERE nome = 'Cruz';
+	
+SELECT 
+	nome AS "Nome do Aluno", 
+	idade,
+	matriculado_em AS quando_foi_matriculado
+FROM aluno;
+	
+	
 	
