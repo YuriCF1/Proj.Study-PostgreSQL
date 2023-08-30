@@ -175,3 +175,21 @@ SELECT *
 	WHERE nome LIKE 'Diego'
 	OR nome LIKE 'Nico%';
 
+-- CAP 4 ------------------------
+-- PRIMARY KEYS
+
+DROP TABLE curso;
+
+CREATE TABLE curso (
+	id INTEGER PRIMARY KEY, --  NOT NULL UNIQUE. Não pode ser NULO nem repetido
+	nome VARCHAR(255) NOT NULL
+);
+
+INSERT INTO curso (id, nome) VALUES (NULL, NULL); -- Nenhuma opção é válida
+INSERT INTO curso (id, nome) VALUES (1, NULL);
+INSERT INTO curso (id, nome) VALUES (NULL, 'HTML');
+
+INSERT INTO curso (id, nome) VALUES (1, 'HTML');
+INSERT INTO curso (id, nome) VALUES (2, 'JAVASCRIPT'); -- Não vai, pois o ID tá duplicado
+
+SELECT * FROM curso;
