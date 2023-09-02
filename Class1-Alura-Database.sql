@@ -191,6 +191,7 @@ INSERT INTO curso (id, nome) VALUES (NULL, 'HTML');
 
 INSERT INTO curso (id, nome) VALUES (1, 'HTML');
 INSERT INTO curso (id, nome) VALUES (2, 'JAVASCRIPT'); -- Não vai, pois o ID tá duplicado
+INSERT INTO curso (id, nome) VALUES (3, 'TYPESCRIPT');
 
 SELECT * FROM curso;
 
@@ -220,7 +221,9 @@ CREATE TABLE student_curso (
 );
 
 INSERT INTO student_curso (student_id, curso_id) VALUES(1,1);
-INSERT INTO student_curso (student_id, curso_id) VALUES(2,1);
+INSERT INTO student_curso (student_id, curso_id) VALUES(2,2);
+
+DELETE FROM student_curso WHERE student_id = 2 AND curso_id = 1;
 
 INSERT INTO student_curso (student_id, curso_id) VALUES(3,1); --Nenhuma solução abaixo funciona, pois ou o aluno ou o curso 3 não existe
 INSERT INTO student_curso (student_id, curso_id) VALUES(1,3);
@@ -235,3 +238,55 @@ SELECT * FROM student WHERE id= 3;
 SELECT * FROM curso WHERE id = 1;
 
 SELECT * FROM student_curso;
+
+-- Consulta relacionadas, com duas tabelas
+SELECT *
+	FROM student_curso;
+
+INSERT INTO student_curso (student_id, curso_id) VALUES(2,1);
+
+SELECT 
+	student.nome AS student_nome, -- Campos requisitados
+	curso.nome AS curso_nome
+	FROM student -- Tabela principal
+	JOIN student_curso ON student_curso.student_id = student.id -- Da tabela secundária, quero o id registrado, igual o id da principal
+	JOIN curso 		   ON curso.id 				   = student_curso.curso_id; -- E da tabela de curso geral, o id do curso que seja o mesmo do id do curso do estudante
+
+-- Aula 7
+INSERT INTO student (nome) VALUES ('Nico');
+INSERT INTO student (nome) VALUES ('Joao');
+INSERT INTO curso (id, nome) VALUES (4, 'CSS');
+
+SELECT * FROM student;
+SELECT * FROM curso;
+
+--Priorizando a tabela da esquerda, a primeira. Do aluno
+SELECT -- Porém o Nico não será achado aqui, pois ele não está matriculado em curso algum
+	student.nome AS student_nome,
+	curso.nome AS curso_nome
+	FROM student
+	LEFT JOIN student_curso ON student_curso.student_id = student.id -- Por isso, usa-se o LEFT para retornar mesmo que o dado de uma tabela seja NULL
+	LEFT JOIN curso 		   ON curso.id 				   = student_curso.curso_id;
+
+--Priorizando a tabela da direita, a segunda. Do curso
+SELECT 
+	student.nome AS student_nome,
+	curso.nome AS curso_nome
+	FROM student
+	RIGHT JOIN student_curso ON student_curso.student_id = student.id
+	RIGHT JOIN curso 		   ON curso.id 				   = student_curso.curso_id;
+	
+--Trazendo o dado de ambas as tabelas, independentemente se tiver NULL ou não
+SELECT 
+	student.nome AS student_nome,
+	curso.nome AS curso_nome
+	FROM student
+	FULL JOIN student_curso ON student_curso.student_id = student.id
+	FULL JOIN curso 		   ON curso.id 				   = student_curso.curso_id;
+
+--Juntando todos os dados de todas as tabelas
+SELECT 
+	student.nome AS student_nome,
+	curso.nome AS curso_nome
+	FROM student
+CROSS JOIN curso;
