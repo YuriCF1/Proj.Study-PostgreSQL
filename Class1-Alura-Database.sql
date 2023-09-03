@@ -324,25 +324,56 @@ SELECT * FROM student_curso;
 
 SELECT 
 	student.nome AS student_nome,
+	student.id AS student_id,
 	curso.nome AS curso_nome
 	FROM student
 	FULL JOIN student_curso ON student_curso.student_id = student.id
 	FULL JOIN curso 		   ON curso.id 				   = student_curso.curso_id;
 
+--Agora o mesmo caso, porém com o update
+UPDATE student --Não consigo fazer o update, pois ele ja está sendo usado pela tabela de student_curso
+	SET id = 10
+	WHERE id = 2;
+	
+UPDATE student --Não consigo fazer o update, pois ele ja está sendo usado pela tabela de student_curso
+	SET id = 10
+	WHERE id = 4;
 
+DROP TABLE student_curso;
 
+CREATE TABLE student_curso ( --Criando tabela com CASCADE
+	student_id INTEGER,
+	curso_id INTEGER,
+	PRIMARY KEY(student_id, curso_id), -- Chave primária composta
+	
+	FOREIGN KEY (student_id) --Pegando a chave da tabela
+	REFERENCES student(id) -- Referenciando com a chave ID da tabela externa student
+	ON DELETE CASCADE -- Padrão é RESTRICT
+	ON UPDATE CASCADE -- Mudando também o UPDATE
+	,
+	
+	FOREIGN KEY (curso_id)
+	REFERENCES curso(id)
+);
 
+INSERT INTO student_curso (student_id, curso_id) VALUES(2,2);
+INSERT INTO student_curso (student_id, curso_id) VALUES(3,1);
 
+SELECT * FROM student;
+SELECT * FROM student_curso;
 
+UPDATE student -- Fazendo UPDADE, com a tabela agora em CASCADE
+	SET id = 20
+	WHERE id = 3;
 
-
-
-
-
-
-
-
-
+SELECT 
+	student.id AS "Students ID",
+	student.nome AS "Nome do Aluno",
+	curso.id AS "Curso ID",
+	curso.nome AS "Nome do Curso"
+	FROM student 
+	JOIN student_curso ON student_curso.student_id = student.id
+	JOIN curso ON curso.id                         = student_curso.curso_id;
 
 
 
