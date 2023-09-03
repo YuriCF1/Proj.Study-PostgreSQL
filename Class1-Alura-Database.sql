@@ -208,6 +208,7 @@ SELECT * FROM student;
 SELECT * FROM curso;
 
 DROP TABLE student_curso;
+
 CREATE TABLE student_curso (
 	student_id INTEGER,
 	curso_id INTEGER,
@@ -290,3 +291,63 @@ SELECT
 	curso.nome AS curso_nome
 	FROM student
 CROSS JOIN curso;
+
+--CAP 5 USANDO CASCADE__________________________________________________
+
+SELECT * FROM student;
+SELECT * FROM student_curso;
+SELECT * FROM curso;
+
+DELETE FROM student WHERE id = 1; -- Não posso deletar, pois está vinculado a outra tabela
+
+DROP TABLE student_curso; --Deletando tabela antiga, sem o CASCADE
+
+CREATE TABLE student_curso ( --Criando tabela com CASCADE
+	student_id INTEGER,
+	curso_id INTEGER,
+	PRIMARY KEY(student_id, curso_id), -- Chave primária composta
+	
+	FOREIGN KEY (student_id) --Pegando a chave da tabela
+	REFERENCES student(id) -- Referenciando com a chave ID da tabela externa student
+	ON DELETE CASCADE, -- Padrão é RESTRICT
+	
+	FOREIGN KEY (curso_id)
+	REFERENCES curso(id)
+);
+
+INSERT INTO student_curso (student_id, curso_id) VALUES(1,1);
+INSERT INTO student_curso (student_id, curso_id) VALUES(2,2);
+INSERT INTO student_curso (student_id, curso_id) VALUES(3,1);
+INSERT INTO student_curso (student_id, curso_id) VALUES(1,3);
+
+SELECT * FROM student_curso;
+
+SELECT 
+	student.nome AS student_nome,
+	curso.nome AS curso_nome
+	FROM student
+	FULL JOIN student_curso ON student_curso.student_id = student.id
+	FULL JOIN curso 		   ON curso.id 				   = student_curso.curso_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
