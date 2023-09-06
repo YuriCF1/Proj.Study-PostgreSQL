@@ -373,8 +373,8 @@ SELECT
 	curso.nome AS "Nome do Curso"
 	FROM student 
 	JOIN student_curso ON student_curso.student_id = student.id
-	JOIN curso ON curso.id                         = student_curso.curso_id;
-
+	JOIN curso ON curso.id                         = student_curso.curso_id
+	ORDER BY curso.nome, student.nome
 
 
 
