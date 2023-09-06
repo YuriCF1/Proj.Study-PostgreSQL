@@ -35,3 +35,10 @@ SELECT *
 	SELECT * 
 	FROM funcionarios
 	ORDER BY 4 DESC, funcionarios.nome DESC, 2 ASC; -- Caso aja colunas duplicadas
+	
+--Limitando o número de resultados
+SELECT * 
+	FROM funcionarios
+	ORDER BY id
+	LIMIT 3
+	OFFSET 1; --Pulando linha, tirando o ID 1. A partir do 3, colocar OFFSET 2
