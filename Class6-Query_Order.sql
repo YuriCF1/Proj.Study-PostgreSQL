@@ -42,3 +42,13 @@ SELECT *
 	ORDER BY id
 	LIMIT 3
 	OFFSET 1; --Pulando linha, tirando o ID 1. A partir do 3, colocar OFFSET 2
+
+--FUNÇÕES DE AGREGAÇÃO
+
+
+--Funções de agregassão mais utilizadas
+-- COUNT = Retorna a quantidade de registros
+-- SUM = Retorna a soma dos registros
+-- MAX = Retorna o maior valor dos registros
+-- MIN = Retorna o menor valor dos registros
+-- AVG = Retorna a média dos registros
