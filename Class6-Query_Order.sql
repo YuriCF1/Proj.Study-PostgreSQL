@@ -52,3 +52,10 @@ SELECT *
 -- MAX = Retorna o maior valor dos registros
 -- MIN = Retorna o menor valor dos registros
 -- AVG = Retorna a média dos registros
+
+SELECT COUNT (id), 
+	SUM(id), -- Somando de 1 a 8 = 36
+	MAX(id),
+	MIN(id),
+	ROUND(AVG(id), 2) -- Tirando a média dos ID's, e arredondando para 2 casas decimais
+	FROM funcionarios;
