@@ -43,9 +43,7 @@ SELECT *
 	LIMIT 3
 	OFFSET 1; --Pulando linha, tirando o ID 1. A partir do 3, colocar OFFSET 2
 
---FUNÇÕES DE AGREGAÇÃO
-
-
+--FUNÇÕES DE AGREGAÇÃO------------
 --Funções de agregassão mais utilizadas
 -- COUNT = Retorna a quantidade de registros
 -- SUM = Retorna a soma dos registros
@@ -59,3 +57,21 @@ SELECT COUNT (id),
 	MIN(id),
 	ROUND(AVG(id), 2) -- Tirando a média dos ID's, e arredondando para 2 casas decimais
 	FROM funcionarios;
+
+
+--Agrupamento de consultas 
+SELECT DISTINCT nome, sobrenome, --Tirando o nome e sobrenome duplicados
+		-- COUNT(*) | Não posso usar aqui, pois tem o DISTINCT.Precisar estar num "GROUP BY"
+		-- Distinct não funciona com funções de agregação
+	FROM funcionarios
+	ORDER BY nome;
+	
+SELECT
+	nome, 
+	sobrenome,
+	COUNT(id) -- Contando os 2 'Diogo Mascarenhas'
+	FROM funcionarios
+	GROUP BY nome, sobrenome; -- Também funcion com campos 1,2 
+	
+	
+	

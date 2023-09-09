@@ -223,6 +223,7 @@ CREATE TABLE student_curso (
 
 INSERT INTO student_curso (student_id, curso_id) VALUES(1,1);
 INSERT INTO student_curso (student_id, curso_id) VALUES(2,2);
+INSERT INTO student_curso (student_id, curso_id) VALUES(20,2);
 
 DELETE FROM student_curso WHERE student_id = 2 AND curso_id = 1;
 
@@ -376,8 +377,14 @@ SELECT
 	JOIN curso ON curso.id                         = student_curso.curso_id
 	ORDER BY curso.nome, student.nome
 
-
-
+--Aula 6, agrupando consulta
+SELECT curso.nome,
+		COUNT(student.id) -- Contando quantos alunos há em um curso
+	FROM student
+	JOIN student_curso ON student.id = student_curso.student_id
+	JOIN curso ON curso.id = student_curso.curso_id
+GROUP BY 1 -- Usando função de agregação, precisa agrupar. Agrupando pelo campo 'nome'
+ORDER BY 1 -- Agrupando pelo nome do curso
 
 
 
