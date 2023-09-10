@@ -377,7 +377,7 @@ SELECT
 	JOIN curso ON curso.id                         = student_curso.curso_id
 	ORDER BY curso.nome, student.nome
 
---Aula 6, agrupando consulta
+--Capitulo 6, agrupando consulta
 SELECT curso.nome,
 		COUNT(student.id) -- Contando quantos alunos há em um curso
 	FROM student
@@ -386,6 +386,16 @@ SELECT curso.nome,
 GROUP BY 1 -- Usando função de agregação, precisa agrupar. Agrupando pelo campo 'nome'
 ORDER BY 1 -- Agrupando pelo nome do curso
 
+--Filtro em consulta agrupada
+SELECT * FROM student;
+SELECT * FROM student_curso;
+SELECT * FROM curso;
+
+	--Como saber quais cursos estão sem alunos?
+SELECT * FROM curso
+	LEFT JOIN student_curso ON student_curso.curso_id = curso.id
+	LEFT JOIN student ON student.id = student_curso.student_id
+	
 
 
 
