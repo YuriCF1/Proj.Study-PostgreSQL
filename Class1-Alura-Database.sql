@@ -391,11 +391,28 @@ SELECT * FROM student;
 SELECT * FROM student_curso;
 SELECT * FROM curso;
 
-	--Como saber quais cursos estão sem alunos?
-SELECT * FROM curso
+--Como saber quais cursos estão sem alunos?
+-- WHERE NÃO FUNCIOA COM FUNÇÕES DE AGRUPAMENTO
+SELECT curso.nome,
+	COUNT(student.id)
+	FROM curso
 	LEFT JOIN student_curso ON student_curso.curso_id = curso.id
 	LEFT JOIN student ON student.id = student_curso.student_id
-	
+		-- WHERE COUNT(student.id) = 0 | Não posso usar o where com o COUNT e GROUP BY.
+		-- WHERE curso.nome = 'CSS' -- Consigo usar só o WHERE
+		GROUP BY 1
+		HAVING COUNT(student.id) = 0; -- Quando eu quero usar WHERE com func de agrup., tem que ser o HAVING
 
+SELECT nome,
+	COUNT(id) -- Quantos Diogos tem
+	FROM funcionarios
+	GROUP BY nome
+	HAVING COUNT(id) > 1; -- Tranzendo funcionários duplicados
+
+SELECT nome,
+	COUNT(id) -- Quantos Diogos tem
+	FROM funcionarios
+	GROUP BY nome
+	HAVING COUNT(id) = 1; -- Tranzendo funcionários NÃO duplicados
 
 
